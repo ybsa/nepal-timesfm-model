@@ -131,3 +131,7 @@ class NepalTimesFMPipeline:
         with open(p / "model_config.json", "w", encoding="utf-8") as f:
             json.dump(meta, f, indent=2)
         print(f"Saved model configuration to: {p / 'model_config.json'}")
+
+
+# Universal alias
+TimesFMPipeline = NepalTimesFMPipeline
