@@ -13,3 +13,7 @@ timesfm-train --data data/nepal_timesfm_train.csv
 
 `data/nepal_timesfm_train.csv` is a small tracked example. Keep production datasets and model weights out of Git; version them with a release, DVC, or object storage.
 
+## License
+
+MIT. See [LICENSE](LICENSE).
+
