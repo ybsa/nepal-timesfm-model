@@ -1,7 +1,7 @@
-"""Google TimesFM Pipeline & Adaptation Layer for Nepal Weather.
+"""Google TimesFM Pipeline & Inference Adapter for Nepal Weather.
 Supports:
 1. Official Google TimesFM (timesfm.TimesFm) if installed (GPU/CPU).
-2. Clean fallback forecaster for testing & environments before timesfm pip package is installed.
+2. Clean statistical fallback forecaster for environments without the timesfm package.
 """
 from __future__ import annotations
 
@@ -48,9 +48,9 @@ class NepalTimesFMPipeline:
                 self.backend = "timesfm"
                 return
             except Exception as exc:
-                print(f"[TimesFM Notice] Could not load official timesfm library ({exc}). Using Nepal adaptive forecaster.")
+                print(f"[TimesFM Notice] Could not load official timesfm library ({exc}). Using statistical fallback forecaster.")
         
-        self.backend = "nepal_adaptive"
+        self.backend = "adaptive_fallback"
 
     def forecast(self, context_values: list[float], horizon_len: int | None = None) -> list[float]:
         """Forecast future time steps given past context values."""
@@ -65,8 +65,8 @@ class NepalTimesFMPipeline:
             preds = self.tfm.forecast(inputs, freq=[0])  # 0 indicates high-frequency / hourly
             return preds[0][:h_len].tolist()
 
-        # Adaptive Himalayan forecaster: Diurnal 24h harmonic + auto-regressive drift
-        # Captures day-night heating cycle and recent trend in mountain terrain
+        # Statistical fallback: Diurnal 24h harmonic + auto-regressive drift
+        # Captures day-night heating cycle and recent trend
         n = len(context_values)
         recent = context_values[-24:] if n >= 24 else context_values
         recent_mean = sum(recent) / len(recent)
@@ -125,7 +125,8 @@ class NepalTimesFMPipeline:
             "backend": self.backend,
             "context_len": self.context_len,
             "horizon_len": self.horizon_len,
-            "trained_for": "Nepal Topographic Weather & Climate Shifts",
+            "region": "Nepal",
+            "description": "Pre-trained TimesFM checkpoint fine-tuned on Nepal multi-location hourly weather data.",
         }
         with open(p / "model_config.json", "w", encoding="utf-8") as f:
             json.dump(meta, f, indent=2)

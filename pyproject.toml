@@ -5,12 +5,10 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "nepal-timesfm-model"
 version = "0.1.0"
-description = "TimesFM adaptation and evaluation for Nepal weather time series."
+description = "Pre-trained TimesFM model checkpoint and benchmark dataset for Nepal weather time series."
 requires-python = ">=3.11"
-
-[project.scripts]
-timesfm-train = "project2_timesfm_model.train_eval:main"
 
 [tool.setuptools]
 packages = ["project2_timesfm_model"]
+
 

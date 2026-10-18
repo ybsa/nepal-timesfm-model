@@ -8,4 +8,7 @@ outputs/
 data/*.csv
 !data/nepal_timesfm_train.csv
 .env
+*.egg-info/
+dist/
+build/
 
