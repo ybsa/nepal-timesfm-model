@@ -46,7 +46,7 @@ class NepalTimesFMDataset:
         if not self.csv_path.exists():
             raise FileNotFoundError(
                 f"Dataset not found at {self.csv_path}.\n"
-                "Run Project 1 exporter first: python project1_data_agent/run_export.py"
+                "Run Project 1 exporter first: data-agent export <locations...>"
             )
 
         with open(self.csv_path, newline="", encoding="utf-8") as f:
@@ -59,8 +59,8 @@ class NepalTimesFMDataset:
                     "timestamp": row["timestamp"],
                     "value": val_float,
                     "name": row.get("name", uid),
-                    "district": row.get("district", "Unknown"),
-                    "province": row.get("province", "Unknown"),
+                    "district": row.get("district") or row.get("admin2", "Unknown"),
+                    "province": row.get("province") or row.get("admin1", "Unknown"),
                     "elevation_m": float(row.get("elevation_m", 0.0) or 0.0),
                 })
 
