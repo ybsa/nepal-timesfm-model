@@ -1,0 +1,7 @@
+{
+  "model_name": "google/timesfm-1.0-200m-pytorch",
+  "backend": "nepal_adaptive",
+  "context_len": 168,
+  "horizon_len": 24,
+  "trained_for": "Nepal Topographic Weather & Climate Shifts"
+}
