@@ -1,37 +1,13 @@
-# Nepal TimesFM Model & Benchmark Dataset
+# Nepal TimesFM Training Data
 
-This repository contains the **pre-trained Google TimesFM model checkpoint** and **historical multi-location training dataset** for Nepal's topographic weather and microclimates.
+This repository stores the historical multi-location weather dataset used for Nepal weather model work and its model configuration metadata. It does not include training or inference pipeline code.
 
-## 📦 What's Included
+## Included files
 
-1. **`data/nepal_timesfm_train.csv`**: Standardized continuous multi-location hourly time-series dataset across high-altitude and valley stations in Nepal.
-2. **`models/model_config.json`**: Pre-trained TimesFM configuration and adaptation weights.
-3. **`project2_timesfm_model/`**: Inference pipeline adapter to load and run predictions with the model.
+- `project2_timesfm_model/data/nepal_timesfm_train.csv`: Hourly weather observations from multiple locations in Nepal.
+- `project2_timesfm_model/models/model_config.json`: Model configuration metadata. This JSON file is not a model checkpoint or trained model weights.
 
-## 🚀 Usage
-
-Install the model package:
-
-```powershell
-pip install -e .
-```
-
-Load and run predictions in Python:
-
-```python
-from project2_timesfm_model.timesfm_pipeline import NepalTimesFMPipeline
-
-# Initialize model with trained checkpoint
-model = NepalTimesFMPipeline(horizon_len=24)
-
-# Past 7 days of temperature (°C)
-past_context = [14.2, 13.8, 11.5, 9.8, ...] 
-
-# Forecast next 24 hours
-forecast = model.forecast(past_context)
-print("Projected 24h trajectory:", forecast)
-```
+No trained model checkpoint is currently included in this repository.
 
 ## License
 MIT. See [LICENSE](LICENSE).
-
